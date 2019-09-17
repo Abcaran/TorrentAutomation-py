@@ -3,25 +3,37 @@ from __future__ import print_function, unicode_literals
 import requests
 import re
 from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from pprint import pprint
 from PyInquirer import style_from_dict, Token, prompt, Separator
 from examples import custom_style_1
 
 
 def search_torrent(url):
-    page = requests.get(url)
-    soup = BeautifulSoup(page.content, 'html.parser')
+    options = Options()
+    options.add_argument('--headless')
+    options.add_argument('--incognito')
 
-    name = soup.find(
-        'table', {'class': 'table-list table table-responsive table-striped'})
+    browser = webdriver.Chrome(options=options)
+    browser.get(url)
+
+    print(page_table)
+
+    # soup = BeautifulSoup(page.text, 'html.parser')
+
+    # name = soup.find(
+    #     'table', {'class': 'table-list table table-responsive table-striped'}
+    # )
     # link = soup.find
 
-    print(page.content)
+    # print(page.content)
 
 
 name = 'number+23'
 quality = '1080'
 formatted_url = f'https://1337x.to/search/{name}+{quality}/1/'
+
 search_torrent(formatted_url)
 
 
