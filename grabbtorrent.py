@@ -15,16 +15,21 @@ def search_torrent(name, quality, url):
     url_content = f'/search/{name}+{quality}/1/'
 
     search_url = url + url_content
-    soup = parse_html(search_url)
-    link = soup.find('tbody').find(
-        'td', {'class': 'coll-1 name'}).find_all('a')[1]['href']
+    try:
+        soup = parse_html(search_url)
 
-    torrent_url = url + link
-    soup = parse_html(torrent_url)
-    magnetic_link = soup.find(
-        'div', {'class': 'col-9 page-content'}).find('li').find('a')['href']
+        link = soup.find('tbody').find(
+            'td', {'class': 'coll-1 name'}).find_all('a')[1]['href']
 
-    return magnetic_link
+        torrent_url = url + link
+        soup = parse_html(torrent_url)
+        magnetic_link = soup.find(
+            'div', {'class': 'col-9 page-content'}).find('li').find('a')['href']
+
+        return magnetic_link
+
+    except AttributeError:
+        print('Torrent not found, please choose another quality or try another name.')
 
 
 def parse_html(url):
@@ -76,7 +81,6 @@ def main():
     ]
 
     answers = prompt(questions, style=custom_style_1)
-    pprint(answers)
 
     name = answers['content_name']
 
