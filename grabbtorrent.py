@@ -95,6 +95,3 @@ def main():
 
 
 main()
-
-# name = 'number+23'
-# quality = '1080'
