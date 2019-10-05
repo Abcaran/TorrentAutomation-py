@@ -1,6 +1,5 @@
 from __future__ import print_function, unicode_literals
 
-import requests
 import re
 from bs4 import BeautifulSoup
 from selenium import webdriver
